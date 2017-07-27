@@ -1,0 +1,37 @@
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>Details</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content >
+  <div *ngIf="listOfUsers" >
+    <ion-card *ngFor="let item of listOfUsers" style="background-color:darkslategray">
+      <ion-card-header>
+       <b style="color:white"> {{item.name}} </b>
+      </ion-card-header> 
+      <ion-list>
+      <button ion-item>
+      <ion-icon name="md-mail" item-start></ion-icon>
+      {{item.email}}
+    </button>
+     <button ion-item>
+      <ion-icon name="md-call" item-start></ion-icon>
+      {{item.phone}}
+    </button>
+     <button ion-item>
+      <ion-icon name="md-cloud" item-start></ion-icon>
+      {{item.website}}
+    </button>
+     <button ion-item>
+      <ion-icon name="md-locate" item-start></ion-icon>
+      {{item.address.city}}
+    </button>
+      </ion-list>
+
+    </ion-card>
+  </div>
+</ion-content>

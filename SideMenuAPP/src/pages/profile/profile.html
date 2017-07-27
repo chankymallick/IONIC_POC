@@ -1,0 +1,99 @@
+<ion-header>
+  <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>SignUp</ion-title>
+  </ion-navbar>
+</ion-header>
+
+
+<ion-content padding>
+  <ion-list>
+    <ion-item>
+      <ion-label color="primary" floating>Name</ion-label>
+      <ion-input value=""  [(ngModel)]="uname" type="text"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label color="primary" floating>Email</ion-label>
+      <ion-input [(ngModel)]="email" type="email"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label color="primary" floating>Mobile</ion-label>
+      <ion-input [(ngModel)]="phone" type="number"></ion-input>
+    </ion-item>
+
+  <button ion-button block large secondary (click)="call()">CALL NUMBER</button>
+    <ion-label>Skills</ion-label>
+
+    <ion-grid>
+      <ion-row>
+        <ion-col>
+          <ion-item>
+            <ion-label>Core Java</ion-label>
+            <ion-checkbox color="secondary" checked="false"></ion-checkbox>
+          </ion-item>
+        </ion-col>
+        <ion-col>
+          <ion-item>
+            <ion-label>Spring</ion-label>
+            <ion-checkbox color="secondary" checked="false"></ion-checkbox>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>
+          <ion-item>
+            <ion-label>Hybernate</ion-label>
+            <ion-checkbox color="secondary" checked="false"></ion-checkbox>
+          </ion-item>
+        </ion-col>
+        <ion-col>
+          <ion-item>
+            <ion-label>Oracle/Mysql</ion-label>
+            <ion-checkbox color="secondary" checked="false"></ion-checkbox>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+
+    </ion-grid>
+
+    <ion-item>
+      <ion-label>DOB</ion-label>
+      <ion-datetime displayFormat="DD MMM YYYY" [(ngModel)]="event.month"></ion-datetime>
+    </ion-item>
+
+
+
+
+    <ion-list radio-group>
+      <ion-list-header>
+        Sex
+      </ion-list-header>
+
+      <ion-item>
+        <ion-label icon-left>
+          <ion-icon name="man"></ion-icon>
+          Male</ion-label>
+        <ion-radio value="Male"></ion-radio>
+      </ion-item>
+
+      <ion-item>
+        <ion-label icon-left>
+          <ion-icon name="woman"></ion-icon>
+          Female</ion-label>
+        <ion-radio value="Female"></ion-radio>
+      </ion-item>
+    </ion-list>
+
+  </ion-list>
+
+
+
+
+  <button ion-button block  (click)="saveData()"> Get User List </button>
+  <button ion-button block large  (click)="getCameraImage()">Camera</button>
+  <button ion-button block large color="secondary" (click)="light(true)">Torch On</button>
+  <button ion-button block large color="danger" (click)="light(false)">Torch Off</button>
+  
+</ion-content>
