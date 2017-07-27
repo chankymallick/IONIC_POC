@@ -5,11 +5,7 @@ import 'rxjs/add/operator/map';
 import { DetailsPage } from '../details/details';
 import { LoadingController } from 'ionic-angular';
 import { Camera } from '@ionic-native/Camera';
-import { CallNumber } from '@ionic-native/call-number';
-
-
-
-
+import { SQLite, SQLiteObject } from '@ionic-native/sqlite';
 
 @Component({
   selector: 'page-profile',
@@ -23,6 +19,7 @@ export class ProfilePage {
     timeStarts: '07:43',
     timeEnds: '1990-02-20'
   }
+  items = [];
   uname: any = "";
   email: any = "chanky.mallick@gmail.com";
   phone: any = "03214267021";
@@ -32,8 +29,8 @@ export class ProfilePage {
     public http: Http,
     public loadingCtrl: LoadingController,
     private camera: Camera,
-    private callNumber: CallNumber
-    ) {
+    private sqlite: SQLite
+  ) {
 
   }
 
@@ -50,16 +47,14 @@ export class ProfilePage {
       // If it's base64:
       let base64Image = 'data:image/jpeg;base64,' + imageData;
       //  this.http.get("http://chankymallick.appspot.com/myServlet?chat="+encodeURI(base64Image));
-      this.presentLoading(base64Image);
+      console.log(base64Image);
     }, (err) => {
       console.log(err);
     });
   }
   call() {
 
-    this.callNumber.callNumber(this.phone, false)
-      .then(() => this.presentLoading('Launched dialer!'))
-      .catch(() => this.presentLoading('Error launching dialer'));
+
   }
   presentLoading(val) {
     let loader = this.loadingCtrl.create({
@@ -84,4 +79,36 @@ export class ProfilePage {
     // else
     //   this.flashlight.switchOff();
   }
+
+  storeData() {
+    console.log("Updated Database");
+    this.sqlite.create({
+      name: 'ionic_poc1.db',
+      location: 'default'
+    }).then((db: SQLiteObject) => {
+      db.executeSql('create table USERS(name VARCHAR(32),email varchar(32),phone varchar(1))', {})
+        .then(() => console.log('Table Created'))
+        .catch(e => console.log(e));
+
+      db.executeSql("INSERT INTO users(name,email,phone) values(?,?,?)", [this.uname, this.email, this.phone])
+        .then(() => console.log('DATA INSERTED'))
+        .catch(e => console.log(e));
+
+      db.executeSql('select * from users', {}).then((data) => {
+        console.log("Retreievd Data :" + JSON.stringify(data));
+        this.items = [];
+        if (data.rows.length > 0) {
+          for (var i = 0; i < data.rows.length; i++) {
+            //alert(data.rows.item(i).name);�
+            console.log("Name : "+data.rows.item(i).name);
+            console.log("Name : "+data.rows.item(i).email);
+            console.log("Name : "+data.rows.item(i).phone);            
+          }
+        }
+      });
+
+    })
+      .catch(e => console.log(e));
+  }
+
 }

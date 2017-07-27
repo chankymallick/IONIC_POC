@@ -5,13 +5,13 @@ import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
 import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
 import { ListPage } from '../pages/list/list';
-import { ProfilePage} from '../pages/profile/profile';
-import { DetailsPage} from '../pages/details/details';
+import { ProfilePage } from '../pages/profile/profile';
+import { DetailsPage } from '../pages/details/details';
 import { HttpModule } from '@angular/http';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
-import { Camera} from '@ionic-native/Camera';
-import { CallNumber } from '@ionic-native/call-number';
+import { Camera } from '@ionic-native/Camera';
+import { SQLite, SQLiteObject } from '@ionic-native/sqlite';
 
 
 
@@ -26,7 +26,7 @@ import { CallNumber } from '@ionic-native/call-number';
     DetailsPage
   ],
   imports: [
-    BrowserModule,HttpModule,
+    BrowserModule, HttpModule,
     IonicModule.forRoot(MyApp),
   ],
   bootstrap: [IonicApp],
@@ -40,10 +40,9 @@ import { CallNumber } from '@ionic-native/call-number';
   providers: [
     StatusBar,
     SplashScreen,
-    Camera,
-    CallNumber,
-
-    {provide: ErrorHandler, useClass: IonicErrorHandler}
+    Camera,    
+    SQLite,
+    { provide: ErrorHandler, useClass: IonicErrorHandler }
   ]
 })
-export class AppModule {}
+export class AppModule { }
